@@ -4,8 +4,7 @@ import (
 	"crypto/rand"
 	"math/big"
 
-	bls12381 "github.com/consensys/gnark-crypto/ecc/bls12_318"
-	"github.com/consensys/gnark-crypto/ecc/bls24-315/fr"
+	bls12381 "github.com/kilic/bls12-381"
 )
 
 type ESAAccumulator struct {
@@ -59,8 +58,8 @@ func Genkey(k int) (*PrivateKey, *PublicKey) {
 // bilinearPairingGenerator 生成双线性配对参数
 func bilinearPairingGenerator() *PubKey {
 	// 获取配对参数
-	G := bls12381.G1Generator()
-	GT := bls12381.GTGenerator()
+	G := bls12381.NewG1()
+	GT := bls12381.NewGT()
 	g := G
 
 	// 返回公钥
@@ -75,7 +74,8 @@ func bilinearPairingGenerator() *PubKey {
 // scalarBaseMult 计算标量乘法
 func scalarBaseMult(g *bls12381.G1, scalar *big.Int) *bls12381.G1 {
 	var result bls12381.G1
-	result.ScalarMul(g, &fr.Element{*scalar})
+	result = *g              // 将g的值复制到result中
+	result.MulScalar(scalar) // 执行标量乘法
 	return &result
 }
 
