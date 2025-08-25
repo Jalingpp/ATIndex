@@ -31,3 +31,96 @@ func NewAccTrie() *AccTrie {
 		},
 	}
 }
+
+// getPreviousLeaf 获取前序叶子节点
+func (t *AccTrie) getPreviousLeaf(current *TrieNode) *TrieNode {
+	return current.Prev
+}
+
+// getNextLeaf 获取后序叶子节点
+func (t *AccTrie) getNextLeaf(current *TrieNode) *TrieNode {
+	return current.Next
+}
+
+// findOrCreateLeaf 找到或创建叶子节点
+func (t *AccTrie) findOrCreateLeaf(key string) *TrieNode {
+	current := t.Root
+	path := ""
+
+	for i := 0; i < len(key); i++ {
+		char := key[i]
+		path += string(char)
+
+		if current.Children[char] == nil {
+			// 创建新节点
+			current.Children[char] = &TrieNode{
+				IsLeaf:   i == len(key)-1,
+				Children: make(map[byte]*TrieNode),
+				Key:      path,
+			}
+		}
+
+		current = current.Children[char]
+
+		// 如果是叶子节点，设置后缀
+		if i == len(key)-1 {
+			current.Suffix = key
+			current.Values = make([]string, 0)
+			current.Acc = ""
+		}
+	}
+
+	return current
+}
+
+// updateLeafList 更新叶子节点链表
+func (t *AccTrie) updateLeafList(leaf *TrieNode) {
+	// 如果叶子节点已经在链表中，先移除
+	if leaf.Prev != nil {
+		leaf.Prev.Next = leaf.Next
+	}
+	if leaf.Next != nil {
+		leaf.Next.Prev = leaf.Prev
+	}
+
+	// 如果是第一个节点，直接设置为头节点
+	if t.LeafList == nil {
+		t.LeafList = leaf
+		t.LeafTail = leaf
+		leaf.Prev = nil
+		leaf.Next = nil
+		return
+	}
+
+	// 找到正确的插入位置（按字典序）
+	current := t.LeafList
+	var insertAfter *TrieNode = nil
+
+	for current != nil {
+		if current.Key > leaf.Key {
+			break
+		}
+		insertAfter = current
+		current = current.Next
+	}
+
+	// 插入节点
+	if insertAfter == nil {
+		// 插入到头部
+		leaf.Next = t.LeafList
+		leaf.Prev = nil
+		t.LeafList.Prev = leaf
+		t.LeafList = leaf
+	} else {
+		// 插入到中间或尾部
+		leaf.Next = insertAfter.Next
+		leaf.Prev = insertAfter
+		insertAfter.Next = leaf
+
+		if leaf.Next != nil {
+			leaf.Next.Prev = leaf
+		} else {
+			t.LeafTail = leaf
+		}
+	}
+}
