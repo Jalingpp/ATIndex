@@ -74,8 +74,8 @@ func bilinearPairingGenerator() *PubKey {
 // scalarBaseMult 计算标量乘法
 func scalarBaseMult(g *bls12381.G1, scalar *big.Int) *bls12381.G1 {
 	var result bls12381.G1
-	result = *g              // 将g的值复制到result中
-	result.MulScalar(scalar) // 执行标量乘法
+	result = *bls12381.NewG1()
+	result.MulScalar(result, g, scalar) // 执行标量乘法
 	return &result
 }
 

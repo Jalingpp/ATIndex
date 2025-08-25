@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./";
+
+//存储节点为服务器，审计方为客户端
+service SNMAService {
+    rpc InsertKVToSN(InsertKVRequest) returns (InsertKVResponse);
+}
+
+//客户端发起的存储请求
+message InsertKVRequest {
+    string key = 1;
+    string value = 2;
+}
+
+//存储节点对存储请求的回复
+message InsertKVResponse {
+    string keyp = 1;  //前序叶子的key
+    string key = 2;
+    string keyn = 3; //后序叶子的key
+    int32 LNAcc = 4; //当前key对应叶子的累加器值
+    int32 oldLNnAcc = 5; //后序叶子的旧累加器值
+    int32 newLNnAcc = 6; //后序叶子的新累加器值
+}

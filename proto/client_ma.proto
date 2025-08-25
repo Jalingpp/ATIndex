@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./";
+
+service ManagerService {
+    rpc InsertKV(PutFileRequest) returns (PutFileResponse);         //客户端向Manager存储文件
+}
+
+//客户端发起的获取Params和G的请求
+message PutFileRequest{
+    string clientId = 1; //客户端ID
+    string fileId = 2;   //文件ID
+    repeated string keywords = 3;  //关键词列表
+}
+
+//审计方对客户端获取Params和G的回复
+message PutFileResponse{
+    string fileId = 1;  //文件ID
+    map<string, int32> proof = 2;  //关键词存储证明
+}
