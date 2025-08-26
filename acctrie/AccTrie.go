@@ -1,6 +1,10 @@
 package acctrie
 
-import "sync"
+import (
+	"crypto/sha256"
+	"encoding/hex"
+	"sync"
+)
 
 // TrieNode AccTrie树节点
 type TrieNode struct {
@@ -123,4 +127,41 @@ func (t *AccTrie) updateLeafList(leaf *TrieNode) {
 			t.LeafTail = leaf
 		}
 	}
+}
+
+// findNode 查找节点
+func (t *AccTrie) findNode(key string) *TrieNode {
+	current := t.Root
+
+	for i := 0; i < len(key); i++ {
+		char := key[i]
+		if current.Children[char] == nil {
+			return nil
+		}
+		current = current.Children[char]
+	}
+
+	return current
+}
+
+// GetAllLeaves 获取所有叶子节点
+func (t *AccTrie) GetAllLeaves() []*TrieNode {
+	t.mutex.RLock()
+	defer t.mutex.RUnlock()
+
+	leaves := make([]*TrieNode, 0)
+	current := t.LeafList
+
+	for current != nil {
+		leaves = append(leaves, current)
+		current = current.Next
+	}
+
+	return leaves
+}
+
+// calculateHash 计算字符串的哈希值
+func (t *AccTrie) calculateHash(content string) string {
+	hash := sha256.Sum256([]byte(content))
+	return hex.EncodeToString(hash[:])
 }
