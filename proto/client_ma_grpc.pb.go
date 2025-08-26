@@ -23,6 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ManagerServiceClient interface {
 	InsertKV(ctx context.Context, in *PutFileRequest, opts ...grpc.CallOption) (*PutFileResponse, error)
+	DeleteKV(ctx context.Context, in *DeleFileRequest, opts ...grpc.CallOption) (*DeleFileResponse, error)
+	SingleKeywordQuery(ctx context.Context, in *SKQRequest, opts ...grpc.CallOption) (*SKQResponse, error)
 }
 
 type managerServiceClient struct {
@@ -42,11 +44,31 @@ func (c *managerServiceClient) InsertKV(ctx context.Context, in *PutFileRequest,
 	return out, nil
 }
 
+func (c *managerServiceClient) DeleteKV(ctx context.Context, in *DeleFileRequest, opts ...grpc.CallOption) (*DeleFileResponse, error) {
+	out := new(DeleFileResponse)
+	err := c.cc.Invoke(ctx, "/proto.ManagerService/DeleteKV", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerServiceClient) SingleKeywordQuery(ctx context.Context, in *SKQRequest, opts ...grpc.CallOption) (*SKQResponse, error) {
+	out := new(SKQResponse)
+	err := c.cc.Invoke(ctx, "/proto.ManagerService/SingleKeywordQuery", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ManagerServiceServer is the server API for ManagerService service.
 // All implementations must embed UnimplementedManagerServiceServer
 // for forward compatibility
 type ManagerServiceServer interface {
 	InsertKV(context.Context, *PutFileRequest) (*PutFileResponse, error)
+	DeleteKV(context.Context, *DeleFileRequest) (*DeleFileResponse, error)
+	SingleKeywordQuery(context.Context, *SKQRequest) (*SKQResponse, error)
 	mustEmbedUnimplementedManagerServiceServer()
 }
 
@@ -56,6 +78,12 @@ type UnimplementedManagerServiceServer struct {
 
 func (UnimplementedManagerServiceServer) InsertKV(context.Context, *PutFileRequest) (*PutFileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InsertKV not implemented")
+}
+func (UnimplementedManagerServiceServer) DeleteKV(context.Context, *DeleFileRequest) (*DeleFileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteKV not implemented")
+}
+func (UnimplementedManagerServiceServer) SingleKeywordQuery(context.Context, *SKQRequest) (*SKQResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SingleKeywordQuery not implemented")
 }
 func (UnimplementedManagerServiceServer) mustEmbedUnimplementedManagerServiceServer() {}
 
@@ -88,6 +116,42 @@ func _ManagerService_InsertKV_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ManagerService_DeleteKV_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleFileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServiceServer).DeleteKV(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.ManagerService/DeleteKV",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServiceServer).DeleteKV(ctx, req.(*DeleFileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagerService_SingleKeywordQuery_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SKQRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServiceServer).SingleKeywordQuery(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.ManagerService/SingleKeywordQuery",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServiceServer).SingleKeywordQuery(ctx, req.(*SKQRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ManagerService_ServiceDesc is the grpc.ServiceDesc for ManagerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +162,14 @@ var ManagerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "InsertKV",
 			Handler:    _ManagerService_InsertKV_Handler,
+		},
+		{
+			MethodName: "DeleteKV",
+			Handler:    _ManagerService_DeleteKV_Handler,
+		},
+		{
+			MethodName: "SingleKeywordQuery",
+			Handler:    _ManagerService_SingleKeywordQuery_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

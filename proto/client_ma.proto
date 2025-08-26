@@ -6,17 +6,46 @@ option go_package = "./";
 
 service ManagerService {
     rpc InsertKV(PutFileRequest) returns (PutFileResponse);         //客户端向Manager存储文件
+    rpc DeleteKV(DeleFileRequest) returns (DeleFileResponse);         //客户端向Manager删除文件
+    rpc SingleKeywordQuery(SKQRequest) returns (SKQResponse);         //客户端向Manager单关键词查询
 }
 
-//客户端发起的获取Params和G的请求
+//客户端发起的存储文件请求
 message PutFileRequest{
     string clientId = 1; //客户端ID
     string fileId = 2;   //文件ID
     repeated string keywords = 3;  //关键词列表
 }
 
-//审计方对客户端获取Params和G的回复
+//审计方对客户端存储文件的回复
 message PutFileResponse{
     string fileId = 1;  //文件ID
     map<string, int32> proof = 2;  //关键词存储证明
 }
+
+//客户端发起的删除文件请求
+message DeleFileRequest{
+    string clientId = 1; //客户端ID
+    string fileId = 2;   //文件ID
+    repeated string keywords = 3;  //关键词列表
+}
+
+//审计方对客户端删除文件的回复
+message DeleFileResponse{
+    string fileId = 1;  //文件ID
+    map<string, int32> proof = 2;  //关键词存储证明
+}
+
+//客户端发起的单关键词查询请求
+message SKQRequest{
+    string clientId = 1; //客户端ID
+    string keyword = 2;   //关键词
+}
+
+//审计方对客户端单关键词查询的回复
+message SKQResponse{
+    string keyword = 1;  //关键词
+    repeated string fileId = 2;  //文件ID列表
+    int32 proof = 3;  //查询结果证明
+}
+

@@ -23,6 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SNMAServiceClient interface {
 	InsertKVToSN(ctx context.Context, in *InsertKVRequest, opts ...grpc.CallOption) (*InsertKVResponse, error)
+	DeleteKVOnSN(ctx context.Context, in *DeleteKVRequest, opts ...grpc.CallOption) (*DeleteKVResponse, error)
+	SingleKeywordQueryOnSN(ctx context.Context, in *SKQSNRequest, opts ...grpc.CallOption) (*SKQSNResponse, error)
 }
 
 type sNMAServiceClient struct {
@@ -42,11 +44,31 @@ func (c *sNMAServiceClient) InsertKVToSN(ctx context.Context, in *InsertKVReques
 	return out, nil
 }
 
+func (c *sNMAServiceClient) DeleteKVOnSN(ctx context.Context, in *DeleteKVRequest, opts ...grpc.CallOption) (*DeleteKVResponse, error) {
+	out := new(DeleteKVResponse)
+	err := c.cc.Invoke(ctx, "/proto.SNMAService/DeleteKVOnSN", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sNMAServiceClient) SingleKeywordQueryOnSN(ctx context.Context, in *SKQSNRequest, opts ...grpc.CallOption) (*SKQSNResponse, error) {
+	out := new(SKQSNResponse)
+	err := c.cc.Invoke(ctx, "/proto.SNMAService/SingleKeywordQueryOnSN", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SNMAServiceServer is the server API for SNMAService service.
 // All implementations must embed UnimplementedSNMAServiceServer
 // for forward compatibility
 type SNMAServiceServer interface {
 	InsertKVToSN(context.Context, *InsertKVRequest) (*InsertKVResponse, error)
+	DeleteKVOnSN(context.Context, *DeleteKVRequest) (*DeleteKVResponse, error)
+	SingleKeywordQueryOnSN(context.Context, *SKQSNRequest) (*SKQSNResponse, error)
 	mustEmbedUnimplementedSNMAServiceServer()
 }
 
@@ -56,6 +78,12 @@ type UnimplementedSNMAServiceServer struct {
 
 func (UnimplementedSNMAServiceServer) InsertKVToSN(context.Context, *InsertKVRequest) (*InsertKVResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InsertKVToSN not implemented")
+}
+func (UnimplementedSNMAServiceServer) DeleteKVOnSN(context.Context, *DeleteKVRequest) (*DeleteKVResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteKVOnSN not implemented")
+}
+func (UnimplementedSNMAServiceServer) SingleKeywordQueryOnSN(context.Context, *SKQSNRequest) (*SKQSNResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SingleKeywordQueryOnSN not implemented")
 }
 func (UnimplementedSNMAServiceServer) mustEmbedUnimplementedSNMAServiceServer() {}
 
@@ -88,6 +116,42 @@ func _SNMAService_InsertKVToSN_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SNMAService_DeleteKVOnSN_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteKVRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SNMAServiceServer).DeleteKVOnSN(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.SNMAService/DeleteKVOnSN",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SNMAServiceServer).DeleteKVOnSN(ctx, req.(*DeleteKVRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SNMAService_SingleKeywordQueryOnSN_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SKQSNRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SNMAServiceServer).SingleKeywordQueryOnSN(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.SNMAService/SingleKeywordQueryOnSN",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SNMAServiceServer).SingleKeywordQueryOnSN(ctx, req.(*SKQSNRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SNMAService_ServiceDesc is the grpc.ServiceDesc for SNMAService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +162,14 @@ var SNMAService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "InsertKVToSN",
 			Handler:    _SNMAService_InsertKVToSN_Handler,
+		},
+		{
+			MethodName: "DeleteKVOnSN",
+			Handler:    _SNMAService_DeleteKVOnSN_Handler,
+		},
+		{
+			MethodName: "SingleKeywordQueryOnSN",
+			Handler:    _SNMAService_SingleKeywordQueryOnSN_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

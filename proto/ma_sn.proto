@@ -7,6 +7,8 @@ option go_package = "./";
 //存储节点为服务器，审计方为客户端
 service SNMAService {
     rpc InsertKVToSN(InsertKVRequest) returns (InsertKVResponse);
+    rpc DeleteKVOnSN(DeleteKVRequest) returns (DeleteKVResponse);
+    rpc SingleKeywordQueryOnSN(SKQSNRequest) returns (SKQSNResponse);
 }
 
 //客户端发起的存储请求
@@ -23,4 +25,37 @@ message InsertKVResponse {
     int32 LNAcc = 4; //当前key对应叶子的累加器值
     int32 oldLNnAcc = 5; //后序叶子的旧累加器值
     int32 newLNnAcc = 6; //后序叶子的新累加器值
+}
+
+//客户端发起的存储请求
+message DeleteKVRequest {
+    string key = 1;
+    string value = 2;
+}
+
+//存储节点对存储请求的回复
+message DeleteKVResponse {
+    string keyp = 1;  //前序叶子的key
+    string key = 2;
+    string keyn = 3; //后序叶子的key
+    int32 LNAcc = 4; //当前key对应叶子的累加器值
+    int32 oldLNnAcc = 5; //后序叶子的旧累加器值
+    int32 newLNnAcc = 6; //后序叶子的新累加器值
+}
+
+//客户端发起的单关键词查询请求
+message SKQSNRequest {
+    string keyword = 1;
+}
+
+//存储节点对存储请求的回复
+message SKQSNResponse {
+    bool isExist = 1;  //是否存在，存在为true，不存在为false
+    string keyword = 2;  //查询关键词
+    repeated string values = 3; //查询结果
+    int32 LNAcc = 4; //当前key对应叶子的累加器值（存在证明）
+    string keyp = 5;  //前序叶子的key（不存在证明）
+    string keyn = 6; //后序叶子的key（不存在证明）
+    int32 oldLNnAcc = 7; //后序叶子的旧累加器值（不存在证明）
+    int32 newLNnAcc = 8; //后序叶子的新累加器值（不存在证明）
 }
