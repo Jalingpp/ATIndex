@@ -1,9 +1,8 @@
 package storage
 
 import (
-	"sync"
-
 	"ATIndex/acctrie"
+	"sync"
 )
 
 // StorageNode 存储节点
@@ -21,4 +20,21 @@ func NewStorageNode(id, address string) *StorageNode {
 		Address: address,
 		Trie:    acctrie.NewAccTrie(),
 	}
+}
+
+// GetAllLeaves 获取所有叶子节点
+func (n *StorageNode) GetAllLeaves() []*acctrie.TrieNode {
+	n.mutex.RLock()
+	defer n.mutex.RUnlock()
+
+	return n.Trie.GetAllLeaves()
+}
+
+// countTotalValues 计算总的值数量
+func (n *StorageNode) countTotalValues(leaves []*acctrie.TrieNode) int {
+	total := 0
+	for _, leaf := range leaves {
+		total += len(leaf.Values)
+	}
+	return total
 }
