@@ -144,8 +144,8 @@ func (t *AccTrie) findNode(key string) *TrieNode {
 	return current
 }
 
-// GetAllLeaves 获取所有叶子节点
-func (t *AccTrie) GetAllLeaves() []*TrieNode {
+// getAllLeaves 获取所有叶子节点
+func (t *AccTrie) getAllLeaves() []*TrieNode {
 	t.mutex.RLock()
 	defer t.mutex.RUnlock()
 

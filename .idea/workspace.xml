@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92b5f20f-609b-4e9c-bde7-3f2f00e1035e" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/acctrie/AccTrie.go" beforeDir="false" afterPath="$PROJECT_DIR$/acctrie/AccTrie.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nodes/Client.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nodes/Manager.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nodes/Storager.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +60,7 @@
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
