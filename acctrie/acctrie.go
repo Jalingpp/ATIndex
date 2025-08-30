@@ -283,6 +283,19 @@ func (t *AccTrie) Insert(key string, values []string) (*InsertResult, error) {
 	}, nil
 }
 
+// Get 获取key对应的值
+func (t *AccTrie) Get(key string) ([]string, bool) {
+	t.mutex.RLock()
+	defer t.mutex.RUnlock()
+
+	node := t.findNode(key)
+	if node == nil || !node.IsLeaf {
+		return nil, false
+	}
+
+	return node.Values, true
+}
+
 // calculateHash 计算字符串的哈希值
 func (t *AccTrie) calculateHash(content string) string {
 	hash := sha256.Sum256([]byte(content))
