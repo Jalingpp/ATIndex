@@ -3,6 +3,7 @@ package acctrie
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"strings"
 	"sync"
 )
 
@@ -24,6 +25,19 @@ type AccTrie struct {
 	LeafList *TrieNode // 叶子节点链表头
 	LeafTail *TrieNode // 叶子节点链表尾
 	mutex    sync.RWMutex
+}
+
+// InsertResult 插入操作的结果
+type InsertResult struct {
+	LN        *TrieNode // 插入的叶子节点
+	KeyP      string    // 前序叶子节点的key
+	LNP       *TrieNode // 前序叶子节点
+	KeyN      string    // 后序叶子节点的key
+	LNN       *TrieNode // 后序叶子节点
+	OldLNNAcc string    // 旧的后序叶子节点累加器
+	NewLNNAcc string    // 新的后序叶子节点累加器
+	OldLNAcc  string    // 旧的叶子节点累加器
+	NewLNAcc  string    // 新的叶子节点累加器
 }
 
 // NewAccTrie 创建新的AccTrie树
@@ -158,6 +172,115 @@ func (t *AccTrie) GetAllLeaves() []*TrieNode {
 	}
 
 	return leaves
+}
+
+// updateAccumulator 更新累加器值
+func (n *TrieNode) updateAccumulator() {
+	if len(n.Values) == 0 {
+		n.Acc = ""
+		return
+	}
+
+	// 创建累加器内容
+	accContent := make([]string, 0)
+
+	// 添加所有值
+	accContent = append(accContent, n.Values...)
+
+	// 添加前序叶子节点的累加器值
+	if n.Prev != nil {
+		accContent = append(accContent, n.Prev.Acc)
+	}
+
+	// 添加前序和后序叶子节点的key
+	if n.Prev != nil {
+		accContent = append(accContent, n.Prev.Key)
+	}
+	if n.Next != nil {
+		accContent = append(accContent, n.Next.Key)
+	}
+
+	// 计算哈希
+	hash := sha256.Sum256([]byte(strings.Join(accContent, "|")))
+	n.Acc = hex.EncodeToString(hash[:])
+}
+
+// addToAccumulator 向累加器添加元素
+func (t *AccTrie) addToAccumulator(acc, element string) string {
+	if acc == "" {
+		return t.calculateHash(element)
+	}
+	return t.calculateHash(acc + "|" + element)
+}
+
+// removeFromAccumulator 从累加器移除元素
+func (t *AccTrie) removeFromAccumulator(acc, element string) string {
+	if acc == "" {
+		return ""
+	}
+
+	return t.calculateHash(strings.Replace(acc, element, "", -1))
+}
+
+// Insert 插入(key, values)到AccTrie树
+func (t *AccTrie) Insert(key string, values []string) (*InsertResult, error) {
+	t.mutex.Lock()
+	defer t.mutex.Unlock()
+
+	// 1. 找到或创建叶子节点
+	leafNode := t.findOrCreateLeaf(key)
+
+	// 2. 更新叶子节点的Values和Acc
+	oldAcc := leafNode.Acc
+	leafNode.Values = append(leafNode.Values, values...)
+	leafNode.updateAccumulator()
+	newAcc := leafNode.Acc
+
+	// 3. 获取前序和后序叶子节点
+	prevLeaf := t.getPreviousLeaf(leafNode)
+	nextLeaf := t.getNextLeaf(leafNode)
+
+	// 4. 更新前序叶子节点的累加器
+	var keyP string
+	if prevLeaf != nil {
+		keyP = prevLeaf.Key
+		prevLeaf.Acc = t.addToAccumulator(prevLeaf.Acc, key)
+	} else {
+		keyP = "NoPrev"
+		leafNode.Acc = t.addToAccumulator(leafNode.Acc, "NoPrev")
+		newAcc = leafNode.Acc
+	}
+
+	// 5. 更新后序叶子节点的累加器
+	var keyN, oldNextAcc, newNextAcc string
+	if nextLeaf != nil {
+		keyN = nextLeaf.Key
+		oldNextAcc = nextLeaf.Acc
+		// 从后序叶子节点中删除前序叶子节点的key
+		nextLeaf.Acc = t.removeFromAccumulator(nextLeaf.Acc, keyP)
+		// 添加当前key到后序叶子节点
+		nextLeaf.Acc = t.addToAccumulator(nextLeaf.Acc, key)
+		newNextAcc = nextLeaf.Acc
+	} else {
+		keyN = "NoNext"
+		leafNode.Acc = t.addToAccumulator(leafNode.Acc, "NoNext")
+		newAcc = leafNode.Acc
+	}
+
+	// 6. 更新叶子节点链表
+	t.updateLeafList(leafNode)
+
+	return &InsertResult{
+		LN:        leafNode,
+		KeyP:      keyP,
+		LNP:       prevLeaf,
+		KeyN:      keyN,
+		LNN:       nextLeaf,
+		OldLNNAcc: oldNextAcc,
+		NewLNNAcc: newNextAcc,
+		OldLNAcc:  oldAcc,
+		NewLNAcc:  newAcc,
+	}, nil
 }
 
 // calculateHash 计算字符串的哈希值
