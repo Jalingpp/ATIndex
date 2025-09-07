@@ -1,0 +1,2 @@
+/usr/bin/ar qc libesa_lib.a CMakeFiles/esa_lib.dir/src/bigint_impl.cpp.o CMakeFiles/esa_lib.dir/src/group_element_impl.cpp.o CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.o CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o
+/usr/bin/ranlib libesa_lib.a

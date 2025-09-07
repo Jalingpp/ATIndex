@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/Users/kazmiller/CLionProjects/untitled/build",
+  "command": "/usr/bin/clang++  -I/Users/kazmiller/CLionProjects/untitled/include -I/opt/homebrew/include  -Wall -Wextra -O2 -g -DDEBUG -g -std=gnu++17 -arch arm64 -o CMakeFiles/esa_lib.dir/src/bigint_impl.cpp.o -c /Users/kazmiller/CLionProjects/untitled/src/bigint_impl.cpp",
+  "file": "/Users/kazmiller/CLionProjects/untitled/src/bigint_impl.cpp",
+  "output": "CMakeFiles/esa_lib.dir/src/bigint_impl.cpp.o"
+},
+{
+  "directory": "/Users/kazmiller/CLionProjects/untitled/build",
+  "command": "/usr/bin/clang++  -I/Users/kazmiller/CLionProjects/untitled/include -I/opt/homebrew/include  -Wall -Wextra -O2 -g -DDEBUG -g -std=gnu++17 -arch arm64 -o CMakeFiles/esa_lib.dir/src/group_element_impl.cpp.o -c /Users/kazmiller/CLionProjects/untitled/src/group_element_impl.cpp",
+  "file": "/Users/kazmiller/CLionProjects/untitled/src/group_element_impl.cpp",
+  "output": "CMakeFiles/esa_lib.dir/src/group_element_impl.cpp.o"
+},
+{
+  "directory": "/Users/kazmiller/CLionProjects/untitled/build",
+  "command": "/usr/bin/clang++  -I/Users/kazmiller/CLionProjects/untitled/include -I/opt/homebrew/include  -Wall -Wextra -O2 -g -DDEBUG -g -std=gnu++17 -arch arm64 -o CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.o -c /Users/kazmiller/CLionProjects/untitled/src/zk_proof_impl.cpp",
+  "file": "/Users/kazmiller/CLionProjects/untitled/src/zk_proof_impl.cpp",
+  "output": "CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.o"
+},
+{
+  "directory": "/Users/kazmiller/CLionProjects/untitled/build",
+  "command": "/usr/bin/clang++  -I/Users/kazmiller/CLionProjects/untitled/include -I/opt/homebrew/include  -Wall -Wextra -O2 -g -DDEBUG -g -std=gnu++17 -arch arm64 -o CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o -c /Users/kazmiller/CLionProjects/untitled/src/esa_accumulator.cpp",
+  "file": "/Users/kazmiller/CLionProjects/untitled/src/esa_accumulator.cpp",
+  "output": "CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o"
+},
+{
+  "directory": "/Users/kazmiller/CLionProjects/untitled/build",
+  "command": "/usr/bin/clang++  -I/Users/kazmiller/CLionProjects/untitled/include -I/opt/homebrew/include  -Wall -Wextra -O2 -g -DDEBUG -g -std=gnu++17 -arch arm64 -o CMakeFiles/esa_examples.dir/examples/usage_examples.cpp.o -c /Users/kazmiller/CLionProjects/untitled/examples/usage_examples.cpp",
+  "file": "/Users/kazmiller/CLionProjects/untitled/examples/usage_examples.cpp",
+  "output": "CMakeFiles/esa_examples.dir/examples/usage_examples.cpp.o"
+}
+]
