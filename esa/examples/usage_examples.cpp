@@ -1,6 +1,5 @@
 #include "esa_accumulator.h"
 #include <iostream>
-#include <vector>
 
 void demonstrate_basic_operations() {
     std::cout << "=== 基本操作演示 ===" << std::endl;
@@ -62,21 +61,50 @@ void demonstrate_witness_system() {
     std::cout << "见证更新成功" << std::endl;
 }
 
-void demonstrate_batch_operations() {
-    std::cout << "\n=== 批量操作演示 ===" << std::endl;
+
+void demonstrate_complement_operations() {
+    std::cout << "\n=== 补集操作演示 ===" << std::endl;
+    
+    ESAAccumulator acc1, acc2;
+    
+    // 创建两个集合
+    acc1.add_element(BigInt("1"));
+    acc1.add_element(BigInt("2"));
+    acc1.add_element(BigInt("3"));
+    acc1.add_element(BigInt("4"));
+    
+    acc2.add_element(BigInt("2"));
+    acc2.add_element(BigInt("3"));
+    acc2.add_element(BigInt("5"));
+    
+    // 计算补集
+    SetOperationResult complement = acc1.compute_complement(acc2.get_current_set());
+    std::cout << "补集大小: " << complement.result_set.size() << std::endl;
+    
+    // 验证补集证明
+    bool complement_valid = acc1.verify_set_operation_proof(complement);
+    std::cout << "补集证明验证: " << (complement_valid ? "成功" : "失败") << std::endl;
+}
+
+void demonstrate_element_update() {
+    std::cout << "\n=== 元素修改演示 ===" << std::endl;
     
     ESAAccumulator acc;
     
-    // 批量添加元素
-    std::vector<BigInt> elements = {BigInt("1"), BigInt("2"), BigInt("3"), BigInt("4"), BigInt("5")};
-    for (const auto& elem : elements) {
-        acc.add_element(elem);
-    }
+    // 添加元素
+    acc.add_element(BigInt("100"));
+    acc.add_element(BigInt("200"));
+    acc.add_element(BigInt("300"));
     
-    // 批量成员关系证明
-    std::vector<BigInt> batch_elements = {BigInt("1"), BigInt("2"), BigInt("3")};
-    ZeroKnowledgeProof batch_proof = acc.generate_batch_membership_proof(batch_elements);
-    std::cout << "批量证明生成成功" << std::endl;
+    std::cout << "修改前集合大小: " << acc.size() << std::endl;
+    
+    // 修改元素
+    bool update_success = acc.update_element(BigInt("200"), BigInt("250"));
+    std::cout << "元素修改: " << (update_success ? "成功" : "失败") << std::endl;
+    
+    std::cout << "修改后集合大小: " << acc.size() << std::endl;
+    std::cout << "200在集合中: " << (acc.contains(BigInt("200")) ? "是" : "否") << std::endl;
+    std::cout << "250在集合中: " << (acc.contains(BigInt("250")) ? "是" : "否") << std::endl;
 }
 
 int main() {
@@ -86,7 +114,8 @@ int main() {
         demonstrate_basic_operations();
         demonstrate_set_operations();
         demonstrate_witness_system();
-        demonstrate_batch_operations();
+        demonstrate_complement_operations();
+        demonstrate_element_update();
         
         std::cout << "\n=== 所有功能演示完成 ===" << std::endl;
         

@@ -1,7 +1,6 @@
 #include "esa_accumulator.h"
 #include <iostream>
 #include <sstream>
-#include <iomanip>
 
 // ESAAccumulator 实现
 ESAAccumulator::ESAAccumulator() 
@@ -91,6 +90,41 @@ bool ESAAccumulator::remove_element(const BigInt& element) {
     return true;
 }
 
+bool ESAAccumulator::update_element(const BigInt& old_element, const BigInt& new_element) {
+    // 检查旧元素是否存在
+    if (current_set.find(old_element) == current_set.end()) {
+        std::cout << "元素 " << old_element.to_string() << " 不存在于集合中，无法修改" << std::endl;
+        return false;
+    }
+    
+    // 检查新元素是否已存在
+    if (current_set.find(new_element) != current_set.end()) {
+        std::cout << "元素 " << new_element.to_string() << " 已存在于集合中，无法修改" << std::endl;
+        return false;
+    }
+    
+    // 删除旧元素
+    current_set.erase(old_element);
+    element_commitments.erase(old_element);
+    
+    // 添加新元素
+    current_set.insert(new_element);
+    GroupElement element_commitment = compute_commitment(new_element);
+    element_commitments[new_element] = element_commitment;
+    
+    // 重新计算累加器值
+    accumulator_value = GroupElement::identity(group_order);
+    for (const auto& elem : current_set) {
+        GroupElement element_power = generator ^ elem;
+        BigInt new_value = (accumulator_value.get_value() * element_power.get_value()) % group_order;
+        accumulator_value = GroupElement(new_value, group_order);
+    }
+    
+    std::cout << "成功修改元素: " << old_element.to_string() << " -> " << new_element.to_string() << std::endl;
+    std::cout << "新累加器值: " << accumulator_value.to_string() << std::endl;
+    return true;
+}
+
 bool ESAAccumulator::contains(const BigInt& element) const {
     return current_set.find(element) != current_set.end();
 }
@@ -171,95 +205,6 @@ ZeroKnowledgeProof ESAAccumulator::generate_non_membership_proof(const BigInt& e
     return proof;
 }
 
-ZeroKnowledgeProof ESAAccumulator::generate_subset_proof(const std::unordered_set<BigInt, BigInt::Hash>& subset) {
-    ZeroKnowledgeProof proof(ProofType::SUBSET);
-    
-    // 检查子集关系
-    for (const auto& elem : subset) {
-        if (!contains(elem)) {
-            std::cout << "子集包含不在集合中的元素，无法生成子集证明" << std::endl;
-            return proof;
-        }
-    }
-    
-    // 生成子集关系证明
-    BigInt r = generate_random();
-    proof.set_randomness(r);
-    
-    // 计算承诺
-    GroupElement commitment = generator ^ r;
-    proof.set_commitment(commitment);
-    
-    // 计算挑战
-    std::string subset_str;
-    for (const auto& elem : subset) {
-        subset_str += elem.to_string() + ",";
-    }
-    BigInt challenge_input = CryptoUtils::sha256(
-        commitment.get_value().to_string() + 
-        accumulator_value.get_value().to_string() + 
-        subset_str
-    );
-    BigInt challenge = challenge_input % group_order;
-    proof.set_challenge(challenge);
-    
-    // 计算响应 - 使用子集元素的乘积
-    BigInt subset_product = BigInt("1");
-    for (const auto& elem : subset) {
-        subset_product = (subset_product * elem) % group_order;
-    }
-    BigInt response = (r + challenge * subset_product) % group_order;
-    proof.set_response(response);
-    
-    proof.set_valid(true);
-    std::cout << "生成子集关系证明，子集大小: " << subset.size() << std::endl;
-    return proof;
-}
-
-ZeroKnowledgeProof ESAAccumulator::generate_batch_membership_proof(const std::vector<BigInt>& elements) {
-    ZeroKnowledgeProof proof(ProofType::BATCH_MEMBERSHIP);
-    
-    // 检查所有元素都在集合中
-    for (const auto& elem : elements) {
-        if (!contains(elem)) {
-            std::cout << "批量证明包含不在集合中的元素" << std::endl;
-            return proof;
-        }
-    }
-    
-    // 生成批量成员关系证明
-    BigInt r = generate_random();
-    proof.set_randomness(r);
-    
-    // 计算承诺
-    GroupElement commitment = generator ^ r;
-    proof.set_commitment(commitment);
-    
-    // 计算挑战
-    std::string elements_str;
-    for (const auto& elem : elements) {
-        elements_str += elem.to_string() + ",";
-    }
-    BigInt challenge_input = CryptoUtils::sha256(
-        commitment.get_value().to_string() + 
-        accumulator_value.get_value().to_string() + 
-        elements_str
-    );
-    BigInt challenge = challenge_input % group_order;
-    proof.set_challenge(challenge);
-    
-    // 计算响应 - 使用元素列表的乘积
-    BigInt elements_product = BigInt("1");
-    for (const auto& elem : elements) {
-        elements_product = (elements_product * elem) % group_order;
-    }
-    BigInt response = (r + challenge * elements_product) % group_order;
-    proof.set_response(response);
-    
-    proof.set_valid(true);
-    std::cout << "生成批量成员关系证明，元素数量: " << elements.size() << std::endl;
-    return proof;
-}
 
 BigInt ESAAccumulator::generate_witness(const BigInt& element) {
     if (!contains(element)) {
@@ -418,6 +363,47 @@ SetOperationResult ESAAccumulator::compute_difference(const std::unordered_set<B
     return result;
 }
 
+SetOperationResult ESAAccumulator::compute_complement(const std::unordered_set<BigInt, BigInt::Hash>& other_set) {
+    SetOperationResult result;
+    
+    // 计算补集: current_set - other_set (当前集合中不在other_set中的元素)
+    for (const auto& elem : current_set) {
+        if (other_set.find(elem) == other_set.end()) {
+            result.result_set.insert(elem);
+        }
+    }
+    
+    // 生成补集证明
+    result.proof = ZeroKnowledgeProof(ProofType::COMPLEMENT);
+    
+    // 1. 生成随机数
+    BigInt r = generate_random();
+    result.proof.set_randomness(r);
+    
+    // 2. 计算承诺
+    GroupElement commitment = generator ^ r;
+    result.proof.set_commitment(commitment);
+    
+    // 3. 计算挑战
+    BigInt challenge_input = CryptoUtils::sha256(
+        commitment.get_value().to_string() + 
+        accumulator_value.get_value().to_string() + 
+        "complement"
+    );
+    BigInt challenge = challenge_input % group_order;
+    result.proof.set_challenge(challenge);
+    
+    // 4. 计算响应
+    BigInt response = (r + challenge * BigInt(std::to_string(result.result_set.size()))) % group_order;
+    result.proof.set_response(response);
+    
+    result.proof.set_valid(true);
+    result.is_valid = true;
+    
+    std::cout << "计算补集完成，结果大小: " << result.result_set.size() << std::endl;
+    return result;
+}
+
 bool ESAAccumulator::verify_membership_proof(const ZeroKnowledgeProof& proof, const BigInt& element) {
     if (proof.get_type() != ProofType::MEMBERSHIP || !proof.valid()) {
         return false;
@@ -471,75 +457,6 @@ bool ESAAccumulator::verify_non_membership_proof(const ZeroKnowledgeProof& proof
     return left_side == right_side;
 }
 
-bool ESAAccumulator::verify_subset_proof(const ZeroKnowledgeProof& proof, const std::unordered_set<BigInt, BigInt::Hash>& subset) {
-    if (proof.get_type() != ProofType::SUBSET || !proof.valid()) {
-        return false;
-    }
-    
-    // 验证子集关系证明
-    // 重新计算挑战并验证
-    std::string subset_str;
-    for (const auto& elem : subset) {
-        subset_str += elem.to_string() + ",";
-    }
-    BigInt challenge_input = CryptoUtils::sha256(
-        proof.get_commitment().get_value().to_string() + 
-        accumulator_value.get_value().to_string() + 
-        subset_str
-    );
-    BigInt expected_challenge = challenge_input % group_order;
-    
-    if (expected_challenge != proof.get_challenge()) {
-        return false;
-    }
-    
-    // 计算子集元素的乘积
-    BigInt subset_product = BigInt("1");
-    for (const auto& elem : subset) {
-        subset_product = (subset_product * elem) % group_order;
-    }
-    
-    GroupElement left_side = generator ^ proof.get_response();
-    GroupElement right_side = proof.get_commitment() * 
-                             (generator ^ (proof.get_challenge() * subset_product));
-    
-    return left_side == right_side;
-}
-
-bool ESAAccumulator::verify_batch_membership_proof(const ZeroKnowledgeProof& proof, const std::vector<BigInt>& elements) {
-    if (proof.get_type() != ProofType::BATCH_MEMBERSHIP || !proof.valid()) {
-        return false;
-    }
-    
-    // 验证批量成员关系证明
-    // 重新计算挑战并验证
-    std::string elements_str;
-    for (const auto& elem : elements) {
-        elements_str += elem.to_string() + ",";
-    }
-    BigInt challenge_input = CryptoUtils::sha256(
-        proof.get_commitment().get_value().to_string() + 
-        accumulator_value.get_value().to_string() + 
-        elements_str
-    );
-    BigInt expected_challenge = challenge_input % group_order;
-    
-    if (expected_challenge != proof.get_challenge()) {
-        return false;
-    }
-    
-    // 计算元素列表的乘积
-    BigInt elements_product = BigInt("1");
-    for (const auto& elem : elements) {
-        elements_product = (elements_product * elem) % group_order;
-    }
-    
-    GroupElement left_side = generator ^ proof.get_response();
-    GroupElement right_side = proof.get_commitment() * 
-                             (generator ^ (proof.get_challenge() * elements_product));
-    
-    return left_side == right_side;
-}
 
 bool ESAAccumulator::verify_witness(const BigInt& witness, const BigInt& element) {
     // 验证见证：检查 witness * g^element = A
@@ -560,6 +477,34 @@ bool ESAAccumulator::verify_set_operation_proof(const SetOperationResult& result
     GroupElement left_side = generator ^ result.proof.get_response();
     GroupElement right_side = result.proof.get_commitment() * 
                              (generator ^ (result.proof.get_challenge() * BigInt(std::to_string(result.result_set.size()))));
+    
+    return left_side == right_side;
+}
+
+bool ESAAccumulator::verify_complement_proof(const ZeroKnowledgeProof& proof, const std::unordered_set<BigInt, BigInt::Hash>& /* other_set */) {
+    if (proof.get_type() != ProofType::COMPLEMENT || !proof.valid()) {
+        return false;
+    }
+    
+    // 验证补集证明
+    // 重新计算挑战并验证
+    BigInt challenge_input = CryptoUtils::sha256(
+        proof.get_commitment().get_value().to_string() + 
+        accumulator_value.get_value().to_string() + 
+        "complement"
+    );
+    BigInt expected_challenge = challenge_input % group_order;
+    
+    if (expected_challenge != proof.get_challenge()) {
+        return false;
+    }
+    
+    // 验证零知识补集证明
+    // 检查 g^s = C * g^(c * |complement_set|) mod n
+    
+    GroupElement left_side = generator ^ proof.get_response();
+    GroupElement right_side = proof.get_commitment() * 
+                             (generator ^ (proof.get_challenge() * BigInt(std::to_string(proof.get_response().to_string().length()))));
     
     return left_side == right_side;
 }

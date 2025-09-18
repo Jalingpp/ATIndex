@@ -115,8 +115,7 @@ enum class ProofType {
     UNION,           // 并集证明
     INTERSECTION,    // 交集证明
     DIFFERENCE,      // 差集证明
-    SUBSET,          // 子集关系证明
-    BATCH_MEMBERSHIP // 批量成员关系证明
+    COMPLEMENT       // 补集证明
 };
 
 // 零知识证明结构
@@ -193,13 +192,12 @@ public:
     // 基本操作
     bool add_element(const BigInt& element);
     bool remove_element(const BigInt& element);
+    bool update_element(const BigInt& old_element, const BigInt& new_element);
     bool contains(const BigInt& element) const;
     
     // 零知识证明生成
     ZeroKnowledgeProof generate_membership_proof(const BigInt& element);
     ZeroKnowledgeProof generate_non_membership_proof(const BigInt& element);
-    ZeroKnowledgeProof generate_subset_proof(const std::unordered_set<BigInt, BigInt::Hash>& subset);
-    ZeroKnowledgeProof generate_batch_membership_proof(const std::vector<BigInt>& elements);
     
     // 见证生成和更新
     BigInt generate_witness(const BigInt& element);
@@ -209,13 +207,13 @@ public:
     SetOperationResult compute_union(const std::unordered_set<BigInt, BigInt::Hash>& other_set);
     SetOperationResult compute_intersection(const std::unordered_set<BigInt, BigInt::Hash>& other_set);
     SetOperationResult compute_difference(const std::unordered_set<BigInt, BigInt::Hash>& other_set);
+    SetOperationResult compute_complement(const std::unordered_set<BigInt, BigInt::Hash>& other_set);
     
     // 证明验证
     bool verify_membership_proof(const ZeroKnowledgeProof& proof, const BigInt& element);
     bool verify_non_membership_proof(const ZeroKnowledgeProof& proof, const BigInt& element);
-    bool verify_subset_proof(const ZeroKnowledgeProof& proof, const std::unordered_set<BigInt, BigInt::Hash>& subset);
-    bool verify_batch_membership_proof(const ZeroKnowledgeProof& proof, const std::vector<BigInt>& elements);
     bool verify_set_operation_proof(const SetOperationResult& result);
+    bool verify_complement_proof(const ZeroKnowledgeProof& proof, const std::unordered_set<BigInt, BigInt::Hash>& other_set);
     
     // 见证验证
     bool verify_witness(const BigInt& witness, const BigInt& element);
