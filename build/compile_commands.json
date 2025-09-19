@@ -1,0 +1,38 @@
+[
+{
+  "directory": "/Users/kazmiller/Code/ATIndex/build",
+  "command": "/usr/bin/clang++  -I/Users/kazmiller/Code/ATIndex/esa/include -I/opt/homebrew/include  -Wall -Wextra -O2 -g -DDEBUG -g -std=gnu++17 -arch arm64 -o CMakeFiles/esa_lib.dir/src/bigint_impl.cpp.o -c /Users/kazmiller/Code/ATIndex/esa/src/bigint_impl.cpp",
+  "file": "/Users/kazmiller/Code/ATIndex/esa/src/bigint_impl.cpp",
+  "output": "CMakeFiles/esa_lib.dir/src/bigint_impl.cpp.o"
+},
+{
+  "directory": "/Users/kazmiller/Code/ATIndex/build",
+  "command": "/usr/bin/clang++  -I/Users/kazmiller/Code/ATIndex/esa/include -I/opt/homebrew/include  -Wall -Wextra -O2 -g -DDEBUG -g -std=gnu++17 -arch arm64 -o CMakeFiles/esa_lib.dir/src/group_element_impl.cpp.o -c /Users/kazmiller/Code/ATIndex/esa/src/group_element_impl.cpp",
+  "file": "/Users/kazmiller/Code/ATIndex/esa/src/group_element_impl.cpp",
+  "output": "CMakeFiles/esa_lib.dir/src/group_element_impl.cpp.o"
+},
+{
+  "directory": "/Users/kazmiller/Code/ATIndex/build",
+  "command": "/usr/bin/clang++  -I/Users/kazmiller/Code/ATIndex/esa/include -I/opt/homebrew/include  -Wall -Wextra -O2 -g -DDEBUG -g -std=gnu++17 -arch arm64 -o CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.o -c /Users/kazmiller/Code/ATIndex/esa/src/zk_proof_impl.cpp",
+  "file": "/Users/kazmiller/Code/ATIndex/esa/src/zk_proof_impl.cpp",
+  "output": "CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.o"
+},
+{
+  "directory": "/Users/kazmiller/Code/ATIndex/build",
+  "command": "/usr/bin/clang++  -I/Users/kazmiller/Code/ATIndex/esa/include -I/opt/homebrew/include  -Wall -Wextra -O2 -g -DDEBUG -g -std=gnu++17 -arch arm64 -o CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o -c /Users/kazmiller/Code/ATIndex/esa/src/polynomial_commitment.cpp",
+  "file": "/Users/kazmiller/Code/ATIndex/esa/src/polynomial_commitment.cpp",
+  "output": "CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o"
+},
+{
+  "directory": "/Users/kazmiller/Code/ATIndex/build",
+  "command": "/usr/bin/clang++  -I/Users/kazmiller/Code/ATIndex/esa/include -I/opt/homebrew/include  -Wall -Wextra -O2 -g -DDEBUG -g -std=gnu++17 -arch arm64 -o CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o -c /Users/kazmiller/Code/ATIndex/esa/src/simple_polynomial_accumulator.cpp",
+  "file": "/Users/kazmiller/Code/ATIndex/esa/src/simple_polynomial_accumulator.cpp",
+  "output": "CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o"
+},
+{
+  "directory": "/Users/kazmiller/Code/ATIndex/build",
+  "command": "/usr/bin/clang++  -I/Users/kazmiller/Code/ATIndex/esa/include -I/opt/homebrew/include  -Wall -Wextra -O2 -g -DDEBUG -g -std=gnu++17 -arch arm64 -o CMakeFiles/simple_polynomial_examples.dir/examples/simple_polynomial_examples.cpp.o -c /Users/kazmiller/Code/ATIndex/esa/examples/simple_polynomial_examples.cpp",
+  "file": "/Users/kazmiller/Code/ATIndex/esa/examples/simple_polynomial_examples.cpp",
+  "output": "CMakeFiles/simple_polynomial_examples.dir/examples/simple_polynomial_examples.cpp.o"
+}
+]

@@ -23,12 +23,15 @@ set(ESA_SOURCES
     src/bigint_impl.cpp
     src/group_element_impl.cpp
     src/zk_proof_impl.cpp
-    src/esa_accumulator.cpp
+    src/polynomial_commitment.cpp
+    src/simple_polynomial_accumulator.cpp
 )
 
 # 头文件列表
 set(ESA_HEADERS
-    include/esa_accumulator.h
+    include/basic_types.h
+    include/polynomial_commitment.h
+    include/simple_polynomial_accumulator.h
 )
 
 # 创建静态库
@@ -39,11 +42,15 @@ target_include_directories(esa_lib PUBLIC include)
 target_link_libraries(esa_lib ${OPENSSL_LIBRARIES})
 
 # 创建示例程序
-add_executable(esa_examples examples/usage_examples.cpp)
-target_link_libraries(esa_examples esa_lib)
+# add_executable(esa_examples examples/usage_examples.cpp)
+# target_link_libraries(esa_examples esa_lib)
+
+# 创建简化多项式示例程序
+add_executable(simple_polynomial_examples examples/simple_polynomial_examples.cpp)
+target_link_libraries(simple_polynomial_examples esa_lib)
 
 # 安装规则
-install(TARGETS esa_lib esa_examples
+install(TARGETS esa_lib simple_polynomial_examples
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
     RUNTIME DESTINATION bin

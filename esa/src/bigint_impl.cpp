@@ -1,4 +1,4 @@
-#include "esa_accumulator.h"
+#include "basic_types.h"
 #include <openssl/bn.h>
 #include <openssl/rand.h>
 #include <sstream>

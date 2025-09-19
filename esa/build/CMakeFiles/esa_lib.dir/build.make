@@ -114,26 +114,41 @@ CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kazmiller/CLionProjects/untitled/src/zk_proof_impl.cpp -o CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.s
 
-CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o: CMakeFiles/esa_lib.dir/flags.make
-CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o: /Users/kazmiller/CLionProjects/untitled/src/esa_accumulator.cpp
-CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o: CMakeFiles/esa_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o -MF CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o.d -o CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o -c /Users/kazmiller/CLionProjects/untitled/src/esa_accumulator.cpp
+CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o: CMakeFiles/esa_lib.dir/flags.make
+CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o: /Users/kazmiller/CLionProjects/untitled/src/polynomial_commitment.cpp
+CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o: CMakeFiles/esa_lib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o -MF CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o.d -o CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o -c /Users/kazmiller/CLionProjects/untitled/src/polynomial_commitment.cpp
 
-CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.i"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kazmiller/CLionProjects/untitled/src/esa_accumulator.cpp > CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.i
+CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kazmiller/CLionProjects/untitled/src/polynomial_commitment.cpp > CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.i
 
-CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.s"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kazmiller/CLionProjects/untitled/src/esa_accumulator.cpp -o CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.s
+CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kazmiller/CLionProjects/untitled/src/polynomial_commitment.cpp -o CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.s
+
+CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o: CMakeFiles/esa_lib.dir/flags.make
+CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o: /Users/kazmiller/CLionProjects/untitled/src/simple_polynomial_accumulator.cpp
+CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o: CMakeFiles/esa_lib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o -MF CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o.d -o CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o -c /Users/kazmiller/CLionProjects/untitled/src/simple_polynomial_accumulator.cpp
+
+CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kazmiller/CLionProjects/untitled/src/simple_polynomial_accumulator.cpp > CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.i
+
+CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kazmiller/CLionProjects/untitled/src/simple_polynomial_accumulator.cpp -o CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.s
 
 # Object files for target esa_lib
 esa_lib_OBJECTS = \
 "CMakeFiles/esa_lib.dir/src/bigint_impl.cpp.o" \
 "CMakeFiles/esa_lib.dir/src/group_element_impl.cpp.o" \
 "CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.o" \
-"CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o"
+"CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o" \
+"CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o"
 
 # External object files for target esa_lib
 esa_lib_EXTERNAL_OBJECTS =
@@ -141,10 +156,11 @@ esa_lib_EXTERNAL_OBJECTS =
 libesa_lib.a: CMakeFiles/esa_lib.dir/src/bigint_impl.cpp.o
 libesa_lib.a: CMakeFiles/esa_lib.dir/src/group_element_impl.cpp.o
 libesa_lib.a: CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.o
-libesa_lib.a: CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o
+libesa_lib.a: CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o
+libesa_lib.a: CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o
 libesa_lib.a: CMakeFiles/esa_lib.dir/build.make
 libesa_lib.a: CMakeFiles/esa_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libesa_lib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libesa_lib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/esa_lib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/esa_lib.dir/link.txt --verbose=$(VERBOSE)
 

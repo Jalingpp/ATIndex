@@ -9,8 +9,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/kazmiller/CLionProjects/untitled/src/bigint_impl.cpp" "CMakeFiles/esa_lib.dir/src/bigint_impl.cpp.o" "gcc" "CMakeFiles/esa_lib.dir/src/bigint_impl.cpp.o.d"
-  "/Users/kazmiller/CLionProjects/untitled/src/esa_accumulator.cpp" "CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o" "gcc" "CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o.d"
   "/Users/kazmiller/CLionProjects/untitled/src/group_element_impl.cpp" "CMakeFiles/esa_lib.dir/src/group_element_impl.cpp.o" "gcc" "CMakeFiles/esa_lib.dir/src/group_element_impl.cpp.o.d"
+  "/Users/kazmiller/CLionProjects/untitled/src/polynomial_commitment.cpp" "CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o" "gcc" "CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o.d"
+  "/Users/kazmiller/CLionProjects/untitled/src/simple_polynomial_accumulator.cpp" "CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o" "gcc" "CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o.d"
   "/Users/kazmiller/CLionProjects/untitled/src/zk_proof_impl.cpp" "CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.o" "gcc" "CMakeFiles/esa_lib.dir/src/zk_proof_impl.cpp.o.d"
   )
 

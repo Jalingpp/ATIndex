@@ -1,7 +1,45 @@
-#include "esa_accumulator.h"
+#include "basic_types.h"
 #include <openssl/bn.h>
 
-// GroupElement 实现
+// GroupElement 构造函数和赋值操作符实现
+GroupElement::GroupElement() : value(BigInt("0")), modulus(BigInt("1")), is_valid(false) {}
+
+GroupElement::GroupElement(const BigInt& val, const BigInt& mod) 
+    : value(val), modulus(mod), is_valid(true) {
+    // 确保值在模数范围内
+    if (value >= modulus) {
+        value = value % modulus;
+    }
+}
+
+GroupElement::GroupElement(const GroupElement& other) 
+    : value(other.value), modulus(other.modulus), is_valid(other.is_valid) {}
+
+GroupElement::GroupElement(GroupElement&& other) noexcept 
+    : value(std::move(other.value)), modulus(std::move(other.modulus)), is_valid(other.is_valid) {
+    other.is_valid = false;
+}
+
+GroupElement& GroupElement::operator=(const GroupElement& other) {
+    if (this != &other) {
+        value = other.value;
+        modulus = other.modulus;
+        is_valid = other.is_valid;
+    }
+    return *this;
+}
+
+GroupElement& GroupElement::operator=(GroupElement&& other) noexcept {
+    if (this != &other) {
+        value = std::move(other.value);
+        modulus = std::move(other.modulus);
+        is_valid = other.is_valid;
+        other.is_valid = false;
+    }
+    return *this;
+}
+
+// GroupElement 其他方法实现
 GroupElement GroupElement::operator*(const GroupElement& other) const {
     if (!is_valid || !other.is_valid || modulus != other.modulus) {
         return GroupElement();

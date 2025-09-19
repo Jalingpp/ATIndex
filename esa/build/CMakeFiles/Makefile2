@@ -64,12 +64,12 @@ CMAKE_BINARY_DIR = /Users/kazmiller/CLionProjects/untitled/build
 
 # The main recursive "all" target.
 all: CMakeFiles/esa_lib.dir/all
-all: CMakeFiles/esa_examples.dir/all
+all: CMakeFiles/simple_polynomial_examples.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/esa_lib.dir/codegen
-codegen: CMakeFiles/esa_examples.dir/codegen
+codegen: CMakeFiles/simple_polynomial_examples.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -78,7 +78,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/esa_lib.dir/clean
-clean: CMakeFiles/esa_examples.dir/clean
+clean: CMakeFiles/simple_polynomial_examples.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -88,12 +88,12 @@ clean: CMakeFiles/esa_examples.dir/clean
 CMakeFiles/esa_lib.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=3,4,5,6,7 "Built target esa_lib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target esa_lib"
 .PHONY : CMakeFiles/esa_lib.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/esa_lib.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kazmiller/CLionProjects/untitled/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kazmiller/CLionProjects/untitled/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/esa_lib.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kazmiller/CLionProjects/untitled/build/CMakeFiles 0
 .PHONY : CMakeFiles/esa_lib.dir/rule
@@ -105,7 +105,7 @@ esa_lib: CMakeFiles/esa_lib.dir/rule
 # codegen rule for target.
 CMakeFiles/esa_lib.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=3,4,5,6,7 "Finished codegen for target esa_lib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Finished codegen for target esa_lib"
 .PHONY : CMakeFiles/esa_lib.dir/codegen
 
 # clean rule for target.
@@ -114,36 +114,36 @@ CMakeFiles/esa_lib.dir/clean:
 .PHONY : CMakeFiles/esa_lib.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/esa_examples.dir
+# Target rules for target CMakeFiles/simple_polynomial_examples.dir
 
 # All Build rule for target.
-CMakeFiles/esa_examples.dir/all: CMakeFiles/esa_lib.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_examples.dir/build.make CMakeFiles/esa_examples.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_examples.dir/build.make CMakeFiles/esa_examples.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=1,2 "Built target esa_examples"
-.PHONY : CMakeFiles/esa_examples.dir/all
+CMakeFiles/simple_polynomial_examples.dir/all: CMakeFiles/esa_lib.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_polynomial_examples.dir/build.make CMakeFiles/simple_polynomial_examples.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_polynomial_examples.dir/build.make CMakeFiles/simple_polynomial_examples.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=7,8 "Built target simple_polynomial_examples"
+.PHONY : CMakeFiles/simple_polynomial_examples.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/esa_examples.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kazmiller/CLionProjects/untitled/build/CMakeFiles 7
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/esa_examples.dir/all
+CMakeFiles/simple_polynomial_examples.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kazmiller/CLionProjects/untitled/build/CMakeFiles 8
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/simple_polynomial_examples.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kazmiller/CLionProjects/untitled/build/CMakeFiles 0
-.PHONY : CMakeFiles/esa_examples.dir/rule
+.PHONY : CMakeFiles/simple_polynomial_examples.dir/rule
 
 # Convenience name for target.
-esa_examples: CMakeFiles/esa_examples.dir/rule
-.PHONY : esa_examples
+simple_polynomial_examples: CMakeFiles/simple_polynomial_examples.dir/rule
+.PHONY : simple_polynomial_examples
 
 # codegen rule for target.
-CMakeFiles/esa_examples.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_examples.dir/build.make CMakeFiles/esa_examples.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=1,2 "Finished codegen for target esa_examples"
-.PHONY : CMakeFiles/esa_examples.dir/codegen
+CMakeFiles/simple_polynomial_examples.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_polynomial_examples.dir/build.make CMakeFiles/simple_polynomial_examples.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kazmiller/CLionProjects/untitled/build/CMakeFiles --progress-num=7,8 "Finished codegen for target simple_polynomial_examples"
+.PHONY : CMakeFiles/simple_polynomial_examples.dir/codegen
 
 # clean rule for target.
-CMakeFiles/esa_examples.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_examples.dir/build.make CMakeFiles/esa_examples.dir/clean
-.PHONY : CMakeFiles/esa_examples.dir/clean
+CMakeFiles/simple_polynomial_examples.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_polynomial_examples.dir/build.make CMakeFiles/simple_polynomial_examples.dir/clean
+.PHONY : CMakeFiles/simple_polynomial_examples.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

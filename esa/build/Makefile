@@ -175,41 +175,41 @@ esa_lib/fast:
 .PHONY : esa_lib/fast
 
 #=============================================================================
-# Target rules for targets named esa_examples
+# Target rules for targets named simple_polynomial_examples
 
 # Build rule for target.
-esa_examples: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 esa_examples
-.PHONY : esa_examples
+simple_polynomial_examples: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 simple_polynomial_examples
+.PHONY : simple_polynomial_examples
 
 # fast build rule for target.
-esa_examples/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_examples.dir/build.make CMakeFiles/esa_examples.dir/build
-.PHONY : esa_examples/fast
+simple_polynomial_examples/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_polynomial_examples.dir/build.make CMakeFiles/simple_polynomial_examples.dir/build
+.PHONY : simple_polynomial_examples/fast
 
-examples/usage_examples.o: examples/usage_examples.cpp.o
-.PHONY : examples/usage_examples.o
+examples/simple_polynomial_examples.o: examples/simple_polynomial_examples.cpp.o
+.PHONY : examples/simple_polynomial_examples.o
 
 # target to build an object file
-examples/usage_examples.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_examples.dir/build.make CMakeFiles/esa_examples.dir/examples/usage_examples.cpp.o
-.PHONY : examples/usage_examples.cpp.o
+examples/simple_polynomial_examples.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_polynomial_examples.dir/build.make CMakeFiles/simple_polynomial_examples.dir/examples/simple_polynomial_examples.cpp.o
+.PHONY : examples/simple_polynomial_examples.cpp.o
 
-examples/usage_examples.i: examples/usage_examples.cpp.i
-.PHONY : examples/usage_examples.i
+examples/simple_polynomial_examples.i: examples/simple_polynomial_examples.cpp.i
+.PHONY : examples/simple_polynomial_examples.i
 
 # target to preprocess a source file
-examples/usage_examples.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_examples.dir/build.make CMakeFiles/esa_examples.dir/examples/usage_examples.cpp.i
-.PHONY : examples/usage_examples.cpp.i
+examples/simple_polynomial_examples.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_polynomial_examples.dir/build.make CMakeFiles/simple_polynomial_examples.dir/examples/simple_polynomial_examples.cpp.i
+.PHONY : examples/simple_polynomial_examples.cpp.i
 
-examples/usage_examples.s: examples/usage_examples.cpp.s
-.PHONY : examples/usage_examples.s
+examples/simple_polynomial_examples.s: examples/simple_polynomial_examples.cpp.s
+.PHONY : examples/simple_polynomial_examples.s
 
 # target to generate assembly for a file
-examples/usage_examples.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_examples.dir/build.make CMakeFiles/esa_examples.dir/examples/usage_examples.cpp.s
-.PHONY : examples/usage_examples.cpp.s
+examples/simple_polynomial_examples.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_polynomial_examples.dir/build.make CMakeFiles/simple_polynomial_examples.dir/examples/simple_polynomial_examples.cpp.s
+.PHONY : examples/simple_polynomial_examples.cpp.s
 
 src/bigint_impl.o: src/bigint_impl.cpp.o
 .PHONY : src/bigint_impl.o
@@ -235,30 +235,6 @@ src/bigint_impl.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/src/bigint_impl.cpp.s
 .PHONY : src/bigint_impl.cpp.s
 
-src/esa_accumulator.o: src/esa_accumulator.cpp.o
-.PHONY : src/esa_accumulator.o
-
-# target to build an object file
-src/esa_accumulator.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.o
-.PHONY : src/esa_accumulator.cpp.o
-
-src/esa_accumulator.i: src/esa_accumulator.cpp.i
-.PHONY : src/esa_accumulator.i
-
-# target to preprocess a source file
-src/esa_accumulator.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.i
-.PHONY : src/esa_accumulator.cpp.i
-
-src/esa_accumulator.s: src/esa_accumulator.cpp.s
-.PHONY : src/esa_accumulator.s
-
-# target to generate assembly for a file
-src/esa_accumulator.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/src/esa_accumulator.cpp.s
-.PHONY : src/esa_accumulator.cpp.s
-
 src/group_element_impl.o: src/group_element_impl.cpp.o
 .PHONY : src/group_element_impl.o
 
@@ -282,6 +258,54 @@ src/group_element_impl.s: src/group_element_impl.cpp.s
 src/group_element_impl.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/src/group_element_impl.cpp.s
 .PHONY : src/group_element_impl.cpp.s
+
+src/polynomial_commitment.o: src/polynomial_commitment.cpp.o
+.PHONY : src/polynomial_commitment.o
+
+# target to build an object file
+src/polynomial_commitment.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.o
+.PHONY : src/polynomial_commitment.cpp.o
+
+src/polynomial_commitment.i: src/polynomial_commitment.cpp.i
+.PHONY : src/polynomial_commitment.i
+
+# target to preprocess a source file
+src/polynomial_commitment.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.i
+.PHONY : src/polynomial_commitment.cpp.i
+
+src/polynomial_commitment.s: src/polynomial_commitment.cpp.s
+.PHONY : src/polynomial_commitment.s
+
+# target to generate assembly for a file
+src/polynomial_commitment.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/src/polynomial_commitment.cpp.s
+.PHONY : src/polynomial_commitment.cpp.s
+
+src/simple_polynomial_accumulator.o: src/simple_polynomial_accumulator.cpp.o
+.PHONY : src/simple_polynomial_accumulator.o
+
+# target to build an object file
+src/simple_polynomial_accumulator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.o
+.PHONY : src/simple_polynomial_accumulator.cpp.o
+
+src/simple_polynomial_accumulator.i: src/simple_polynomial_accumulator.cpp.i
+.PHONY : src/simple_polynomial_accumulator.i
+
+# target to preprocess a source file
+src/simple_polynomial_accumulator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.i
+.PHONY : src/simple_polynomial_accumulator.cpp.i
+
+src/simple_polynomial_accumulator.s: src/simple_polynomial_accumulator.cpp.s
+.PHONY : src/simple_polynomial_accumulator.s
+
+# target to generate assembly for a file
+src/simple_polynomial_accumulator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/esa_lib.dir/build.make CMakeFiles/esa_lib.dir/src/simple_polynomial_accumulator.cpp.s
+.PHONY : src/simple_polynomial_accumulator.cpp.s
 
 src/zk_proof_impl.o: src/zk_proof_impl.cpp.o
 .PHONY : src/zk_proof_impl.o
@@ -319,20 +343,23 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... esa_examples"
 	@echo "... esa_lib"
-	@echo "... examples/usage_examples.o"
-	@echo "... examples/usage_examples.i"
-	@echo "... examples/usage_examples.s"
+	@echo "... simple_polynomial_examples"
+	@echo "... examples/simple_polynomial_examples.o"
+	@echo "... examples/simple_polynomial_examples.i"
+	@echo "... examples/simple_polynomial_examples.s"
 	@echo "... src/bigint_impl.o"
 	@echo "... src/bigint_impl.i"
 	@echo "... src/bigint_impl.s"
-	@echo "... src/esa_accumulator.o"
-	@echo "... src/esa_accumulator.i"
-	@echo "... src/esa_accumulator.s"
 	@echo "... src/group_element_impl.o"
 	@echo "... src/group_element_impl.i"
 	@echo "... src/group_element_impl.s"
+	@echo "... src/polynomial_commitment.o"
+	@echo "... src/polynomial_commitment.i"
+	@echo "... src/polynomial_commitment.s"
+	@echo "... src/simple_polynomial_accumulator.o"
+	@echo "... src/simple_polynomial_accumulator.i"
+	@echo "... src/simple_polynomial_accumulator.s"
 	@echo "... src/zk_proof_impl.o"
 	@echo "... src/zk_proof_impl.i"
 	@echo "... src/zk_proof_impl.s"

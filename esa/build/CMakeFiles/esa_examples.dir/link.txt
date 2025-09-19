@@ -1,1 +1,0 @@
-/usr/bin/clang++  -Wall -Wextra -O2 -g -DDEBUG -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/esa_examples.dir/examples/usage_examples.cpp.o -o esa_examples  libesa_lib.a /opt/homebrew/lib/libssl.dylib /opt/homebrew/lib/libcrypto.dylib

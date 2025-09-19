@@ -1,0 +1,1 @@
+/usr/bin/clang++  -Wall -Wextra -O2 -g -DDEBUG -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/simple_polynomial_examples.dir/examples/simple_polynomial_examples.cpp.o -o simple_polynomial_examples  libesa_lib.a /opt/homebrew/lib/libssl.dylib /opt/homebrew/lib/libcrypto.dylib
